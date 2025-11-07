@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist de Aceitabilidade de Proposta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .input-group input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .input-group input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .checklist-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .checklist-label {
+            font-size: 15px;
+            color: #333;
+            flex: 1;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: #10b981;
+        }
+
+        .checkbox-wrapper.atende input[type="checkbox"] {
+            accent-color: #10b981;
+        }
+
+        .checkbox-wrapper.nao-atende input[type="checkbox"] {
+            accent-color: #ef4444;
+        }
+
+        .checkbox-wrapper label {
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .checkbox-wrapper.atende label {
+            color: #10b981;
+        }
+
+        .checkbox-wrapper.nao-atende label {
+            color: #ef4444;
+        }
+
+        .observations {
+            margin-top: 30px;
+        }
+
+        .observations label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .observations textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 120px;
+            transition: all 0.3s;
+        }
+
+        .observations textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-save {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .subsection {
+            margin-top: 25px;
+            padding-left: 15px;
+            border-left: 3px solid #667eea;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Checklist de Aceitabilidade de Proposta</h1>
+            <p>Análise de Documentação Licitatória</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="input-group">
+                    <label>Certame:</label>
+                    <input type="text" id="certame" placeholder="Digite o número/nome do certame">
+                </div>
+                <div class="input-group">
+                    <label>Licitante:</label>
+                    <input type="text" id="licitante" placeholder="Digite o nome do licitante">
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Aceitabilidade de Proposta</div>
+                
+                <div class="checklist-item">
+                    <span class="checklist-label">CNPJ</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="cnpj_atende" onchange="handleCheck(this, 'cnpj')">
+                            <label for="cnpj_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="cnpj_nao" onchange="handleCheck(this, 'cnpj')">
+                            <label for="cnpj_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">E-mail</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="email_atende" onchange="handleCheck(this, 'email')">
+                            <label for="email_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="email_nao" onchange="handleCheck(this, 'email')">
+                            <label for="email_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Telefone</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="telefone_atende" onchange="handleCheck(this, 'telefone')">
+                            <label for="telefone_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="telefone_nao" onchange="handleCheck(this, 'telefone')">
+                            <label for="telefone_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Endereço</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="endereco_atende" onchange="handleCheck(this, 'endereco')">
+                            <label for="endereco_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="endereco_nao" onchange="handleCheck(this, 'endereco')">
+                            <label for="endereco_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Data</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="data_atende" onchange="handleCheck(this, 'data')">
+                            <label for="data_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="data_nao" onchange="handleCheck(this, 'data')">
+                            <label for="data_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Representante</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="representante_atende" onchange="handleCheck(this, 'representante')">
+                            <label for="representante_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="representante_nao" onchange="handleCheck(this, 'representante')">
+                            <label for="representante_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Validade da proposta</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="validade_atende" onchange="handleCheck(this, 'validade')">
+                            <label for="validade_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="validade_nao" onchange="handleCheck(this, 'validade')">
+                            <label for="validade_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Descrição</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="descricao_atende" onchange="handleCheck(this, 'descricao')">
+                            <label for="descricao_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="descricao_nao" onchange="handleCheck(this, 'descricao')">
+                            <label for="descricao_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Quantidade</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="quantidade_atende" onchange="handleCheck(this, 'quantidade')">
+                            <label for="quantidade_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="quantidade_nao" onchange="handleCheck(this, 'quantidade')">
+                            <label for="quantidade_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Unidade</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="unidade_atende" onchange="handleCheck(this, 'unidade')">
+                            <label for="unidade_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="unidade_nao" onchange="handleCheck(this, 'unidade')">
+                            <label for="unidade_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Valor unitário</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="valor_unitario_atende" onchange="handleCheck(this, 'valor_unitario')">
+                            <label for="valor_unitario_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="valor_unitario_nao" onchange="handleCheck(this, 'valor_unitario')">
+                            <label for="valor_unitario_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Total (R$)</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="total_atende" onchange="handleCheck(this, 'total')">
+                            <label for="total_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="total_nao" onchange="handleCheck(this, 'total')">
+                            <label for="total_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Total por extenso</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="total_extenso_atende" onchange="handleCheck(this, 'total_extenso')">
+                            <label for="total_extenso_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="total_extenso_nao" onchange="handleCheck(this, 'total_extenso')">
+                            <label for="total_extenso_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Prazo de entrega</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="prazo_atende" onchange="handleCheck(this, 'prazo')">
+                            <label for="prazo_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="prazo_nao" onchange="handleCheck(this, 'prazo')">
+                            <label for="prazo_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Catálogo</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="catalogo_atende" onchange="handleCheck(this, 'catalogo')">
+                            <label for="catalogo_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="catalogo_nao" onchange="handleCheck(this, 'catalogo')">
+                            <label for="catalogo_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Dados bancários</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="dados_bancarios_atende" onchange="handleCheck(this, 'dados_bancarios')">
+                            <label for="dados_bancarios_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="dados_bancarios_nao" onchange="handleCheck(this, 'dados_bancarios')">
+                            <label for="dados_bancarios_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Habilitação</div>
+                
+                <div class="checklist-item">
+                    <span class="checklist-label">Jurídica</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="juridica_atende" onchange="handleCheck(this, 'juridica')">
+                            <label for="juridica_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="juridica_nao" onchange="handleCheck(this, 'juridica')">
+                            <label for="juridica_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Regularidade Fiscal e Trabalhista</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="regularidade_atende" onchange="handleCheck(this, 'regularidade')">
+                            <label for="regularidade_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="regularidade_nao" onchange="handleCheck(this, 'regularidade')">
+                            <label for="regularidade_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Econômico-financeira</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="economica_atende" onchange="handleCheck(this, 'economica')">
+                            <label for="economica_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="economica_nao" onchange="handleCheck(this, 'economica')">
+                            <label for="economica_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <span class="checklist-label">Qualificação Técnica</span>
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper atende">
+                            <input type="checkbox" id="qualificacao_atende" onchange="handleCheck(this, 'qualificacao')">
+                            <label for="qualificacao_atende">Atende</label>
+                        </div>
+                        <div class="checkbox-wrapper nao-atende">
+                            <input type="checkbox" id="qualificacao_nao" onchange="handleCheck(this, 'qualificacao')">
+                            <label for="qualificacao_nao">Não Atende</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">16.3.1 – Habilitação Jurídica</div>
+                    
+                    <div class="checklist-item">
+                        <span class="checklist-label">a) Cédula de identidade (RG) ou documento equivalente</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="hab_a_atende" onchange="handleCheck(this, 'hab_a')">
+                                <label for="hab_a_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="hab_a_nao" onchange="handleCheck(this, 'hab_a')">
+                                <label for="hab_a_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">b) Empresário individual: inscrição no Registro Público de Empresas Mercantis</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="hab_b_atende" onchange="handleCheck(this, 'hab_b')">
+                                <label for="hab_b_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="hab_b_nao" onchange="handleCheck(this, 'hab_b')">
+                                <label for="hab_b_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">c) MEI: Certificado da Condição de Microempreendedor Individual</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="hab_c_atende" onchange="handleCheck(this, 'hab_c')">
+                                <label for="hab_c_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="hab_c_nao" onchange="handleCheck(this, 'hab_c')">
+                                <label for="hab_c_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">d) Sociedade empresária, SLU ou EIRELI: ato constitutivo registrado</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="hab_d_atende" onchange="handleCheck(this, 'hab_d')">
+                                <label for="hab_d_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="hab_d_nao" onchange="handleCheck(this, 'hab_d')">
+                                <label for="hab_d_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">e) Sociedade empresária estrangeira: portaria de autorização</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="hab_e_atende" onchange="handleCheck(this, 'hab_e')">
+                                <label for="hab_e_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="hab_e_nao" onchange="handleCheck(this, 'hab_e')">
+                                <label for="hab_e_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">f) Sociedade simples: inscrição do ato constitutivo no Registro Civil</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="hab_f_atende" onchange="handleCheck(this, 'hab_f')">
+                                <label for="hab_f_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="hab_f_nao" onchange="handleCheck(this, 'hab_f')">
+                                <label for="hab_f_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">g) Filial, sucursal ou agência: inscrição do ato constitutivo</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="hab_g_atende" onchange="handleCheck(this, 'hab_g')">
+                                <label for="hab_g_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="hab_g_nao" onchange="handleCheck(this, 'hab_g')">
+                                <label for="hab_g_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">h) Sociedade cooperativa: ata de fundação e estatuto social</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="hab_h_atende" onchange="handleCheck(this, 'hab_h')">
+                                <label for="hab_h_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="hab_h_nao" onchange="handleCheck(this, 'hab_h')">
+                                <label for="hab_h_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">i) Agricultor familiar: Declaração de Aptidão ao Pronaf</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="hab_i_atende" onchange="handleCheck(this, 'hab_i')">
+                                <label for="hab_i_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="hab_i_nao" onchange="handleCheck(this, 'hab_i')">
+                                <label for="hab_i_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">j) Produtor Rural: matrícula no Cadastro Específico do INSS</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="hab_j_atende" onchange="handleCheck(this, 'hab_j')">
+                                <label for="hab_j_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="hab_j_nao" onchange="handleCheck(this, 'hab_j')">
+                                <label for="hab_j_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">16.3.2 – Qualificação Econômico-Financeira</div>
+                    
+                    <div class="checklist-item">
+                        <span class="checklist-label">a) Certidão negativa de falência ou recuperação judicial</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="econ_a_atende" onchange="handleCheck(this, 'econ_a')">
+                                <label for="econ_a_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="econ_a_nao" onchange="handleCheck(this, 'econ_a')">
+                                <label for="econ_a_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">b) Balanço patrimonial (2022 ou posterior)</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="econ_b_atende" onchange="handleCheck(this, 'econ_b')">
+                                <label for="econ_b_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="econ_b_nao" onchange="handleCheck(this, 'econ_b')">
+                                <label for="econ_b_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">b.1) Indicação de páginas e números do livro (Diário, Abertura, Encerramento)</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="econ_b1_atende" onchange="handleCheck(this, 'econ_b1')">
+                                <label for="econ_b1_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="econ_b1_nao" onchange="handleCheck(this, 'econ_b1')">
+                                <label for="econ_b1_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">b.2) Assinatura do contador e do representante legal</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="econ_b2_atende" onchange="handleCheck(this, 'econ_b2')">
+                                <label for="econ_b2_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="econ_b2_nao" onchange="handleCheck(this, 'econ_b2')">
+                                <label for="econ_b2_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">b.3) Prova de registro na Junta Comercial ou Cartório/recibo ECD</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="econ_b3_atende" onchange="handleCheck(this, 'econ_b3')">
+                                <label for="econ_b3_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="econ_b3_nao" onchange="handleCheck(this, 'econ_b3')">
+                                <label for="econ_b3_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">b.4) Demonstração da escrituração Contábil/Fiscal/pessoal regular</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="econ_b4_atende" onchange="handleCheck(this, 'econ_b4')">
+                                <label for="econ_b4_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="econ_b4_nao" onchange="handleCheck(this, 'econ_b4')">
+                                <label for="econ_b4_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">b.5) Habilitação do profissional contábil (CRC regular)</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="econ_b5_atende" onchange="handleCheck(this, 'econ_b5')">
+                                <label for="econ_b5_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="econ_b5_nao" onchange="handleCheck(this, 'econ_b5')">
+                                <label for="econ_b5_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">16.3.3 – Regularidade Fiscal e Trabalhista</div>
+                    
+                    <div class="checklist-item">
+                        <span class="checklist-label">a) Prova de inscrição no CNPJ</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="reg_a_atende" onchange="handleCheck(this, 'reg_a')">
+                                <label for="reg_a_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="reg_a_nao" onchange="handleCheck(this, 'reg_a')">
+                                <label for="reg_a_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">b) Inscrição no cadastro estadual e/ou municipal</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="reg_b_atende" onchange="handleCheck(this, 'reg_b')">
+                                <label for="reg_b_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="reg_b_nao" onchange="handleCheck(this, 'reg_b')">
+                                <label for="reg_b_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">c) Regularidade com Fazenda Federal, Estadual e Municipal</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="reg_c_atende" onchange="handleCheck(this, 'reg_c')">
+                                <label for="reg_c_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="reg_c_nao" onchange="handleCheck(this, 'reg_c')">
+                                <label for="reg_c_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">d) Regularidade relativa à Seguridade Social e FGTS</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="reg_d_atende" onchange="handleCheck(this, 'reg_d')">
+                                <label for="reg_d_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="reg_d_nao" onchange="handleCheck(this, 'reg_d')">
+                                <label for="reg_d_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <span class="checklist-label">e) Certidão negativa de débitos trabalhistas</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="reg_e_atende" onchange="handleCheck(this, 'reg_e')">
+                                <label for="reg_e_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="reg_e_nao" onchange="handleCheck(this, 'reg_e')">
+                                <label for="reg_e_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">16.4 – Qualificação Técnica</div>
+                    
+                    <div class="checklist-item">
+                        <span class="checklist-label">Documentação complementar (variável)</span>
+                        <div class="checkbox-group">
+                            <div class="checkbox-wrapper atende">
+                                <input type="checkbox" id="tec_var_atende" onchange="handleCheck(this, 'tec_var')">
+                                <label for="tec_var_atende">Atende</label>
+                            </div>
+                            <div class="checkbox-wrapper nao-atende">
+                                <input type="checkbox" id="tec_var_nao" onchange="handleCheck(this, 'tec_var')">
+                                <label for="tec_var_nao">Não Atende</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="observations">
+                <label>Observações:</label>
+                <textarea id="observacoes" placeholder="Digite aqui suas observações sobre a análise..."></textarea>
+            </div>
+
+            <button class="btn-save" onclick="salvarChecklist()">💾 Salvar Checklist</button>
+        </div>
+    </div>
+
+    <script>
+        const checklistData = {};
+
+        function handleCheck(checkbox, itemId) {
+            const isAtende = checkbox.id.includes('_atende');
+            const otherCheckbox = document.getElementById(itemId + (isAtende ? '_nao' : '_atende'));
+            
+            if (checkbox.checked && otherCheckbox) {
+                otherCheckbox.checked = false;
+            }
+            
+            if (checkbox.checked) {
+                checklistData[itemId] = isAtende ? 'Atende' : 'Não Atende';
+            } else {
+                delete checklistData[itemId];
+            }
+        }
+
+        function salvarChecklist() {
+            const certame = document.getElementById('certame').value;
+            const licitante = document.getElementById('licitante').value;
+            const observacoes = document.getElementById('observacoes').value;
+            
+            const dados = {
+                certame,
+                licitante,
+                checklist: checklistData,
+                observacoes,
+                dataHora: new Date().toLocaleString('pt-BR')
+            };
+            
+            console.log('Checklist salvo:', dados);
+            
+            const dataStr = JSON.stringify(dados, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `checklist_${certame.replace(/[^a-z0-9]/gi, '_')}_${Date.now()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ Checklist salvo com sucesso!');
+        }
+    </script>
+</body>
+</html>
+                        
