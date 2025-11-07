@@ -3,163 +3,234 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checklist de Licitação</title>
+  <title>Checklist de Aceitabilidade de Proposta</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Arial, sans-serif;
-      margin: 8px auto;
-      max-width: 900px;
+      background: #f4f4f4;
       padding: 10px;
-      background: #f8f8f8;
-      color: #222;
       font-size: 14px;
     }
-
+    .container {
+      background: white;
+      max-width: 950px;
+      margin: auto;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
     h1 {
       text-align: center;
       font-size: 18px;
-      margin-bottom: 8px;
+      color: #444;
+      margin-bottom: 10px;
     }
-
-    .checklist {
-      background: white;
-      padding: 10px;
-      border-radius: 6px;
-      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    .section-title {
+      font-weight: bold;
+      font-size: 15px;
+      color: #444;
+      margin-top: 18px;
+      border-left: 4px solid #667eea;
+      padding-left: 6px;
     }
-
-    .item {
+    .checklist-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 8px;
       border-bottom: 1px solid #ddd;
       padding: 6px 0;
     }
-
-    .item:last-child {
-      border: none;
+    .checklist-label {
+      flex: 1 1 220px;
+      color: #333;
+      font-size: 13px;
     }
-
-    .titulo {
-      font-weight: bold;
-      margin-bottom: 4px;
-      display: block;
-    }
-
-    .linha {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    label {
+    .checkbox-wrapper {
       display: flex;
       align-items: center;
       gap: 4px;
+      flex: 0 0 auto;
     }
-
     input[type="checkbox"] {
       transform: scale(1.2);
       cursor: pointer;
+      accent-color: #007bff;
     }
-
     textarea {
-      flex: 1;
-      min-height: 40px;
-      resize: vertical;
+      flex: 1 1 300px;
+      min-height: 35px;
       font-size: 13px;
       padding: 4px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      width: 100%;
+      resize: vertical;
     }
-
-    /* Impressão */
-    @media print {
-      body {
-        background: white;
-        font-size: 12px;
-      }
-      textarea {
-        border: 1px solid #aaa;
-      }
-      button, .print-info {
-        display: none;
-      }
-    }
-
-    button {
+    .btn-save {
       display: block;
-      margin: 10px auto;
-      background: #007bff;
+      width: 100%;
+      margin-top: 15px;
+      padding: 10px;
+      background: #667eea;
       color: white;
       border: none;
-      border-radius: 4px;
-      padding: 6px 12px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: bold;
     }
-
-    button:hover {
-      background: #0056b3;
-    }
-
-    .print-info {
-      text-align: center;
-      font-size: 12px;
-      color: #555;
-      margin-top: 6px;
+    .btn-save:hover { background: #5563c1; }
+    @media print {
+      .btn-save { display: none; }
+      body { background: white; font-size: 12px; }
+      textarea { border: 1px solid #aaa; }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Checklist de Aceitabilidade de Proposta</h1>
 
-  <h1>Checklist de Licitação</h1>
-
-  <div class="checklist">
-
-    <div class="item">
-      <span class="titulo">1. Edital publicado corretamente</span>
-      <div class="linha">
-        <label><input type="checkbox" name="atende1"> ATENDE</label>
-        <textarea name="obs1" placeholder="Observações..."></textarea>
-      </div>
+    <div class="input-group">
+      <label>Certame:</label>
+      <input type="text" id="certame" style="width:100%;padding:6px;margin-bottom:6px;">
+      <label>Licitante:</label>
+      <input type="text" id="licitante" style="width:100%;padding:6px;margin-bottom:12px;">
     </div>
 
-    <div class="item">
-      <span class="titulo">2. Documentação de habilitação conferida</span>
-      <div class="linha">
-        <label><input type="checkbox" name="atende2"> ATENDE</label>
-        <textarea name="obs2" placeholder="Observações..."></textarea>
+    <!-- Seção: Aceitabilidade -->
+    <div class="section-title">Aceitabilidade de Proposta</div>
+
+    <div class="checklist-item"><span class="checklist-label">CNPJ</span>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="cnpj_atende">
+        <label for="cnpj_atende">Atende</label>
       </div>
+      <textarea id="cnpj_obs" placeholder="Observações..."></textarea>
     </div>
 
-    <div class="item">
-      <span class="titulo">3. Propostas registradas corretamente no sistema</span>
-      <div class="linha">
-        <label><input type="checkbox" name="atende3"> ATENDE</label>
-        <textarea name="obs3" placeholder="Observações..."></textarea>
+    <div class="checklist-item"><span class="checklist-label">E-mail</span>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="email_atende">
+        <label for="email_atende">Atende</label>
       </div>
+      <textarea id="email_obs" placeholder="Observações..."></textarea>
     </div>
 
-    <div class="item">
-      <span class="titulo">4. Julgamento conforme critérios do edital</span>
-      <div class="linha">
-        <label><input type="checkbox" name="atende4"> ATENDE</label>
-        <textarea name="obs4" placeholder="Observações..."></textarea>
+    <div class="checklist-item"><span class="checklist-label">Telefone</span>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="telefone_atende">
+        <label for="telefone_atende">Atende</label>
       </div>
+      <textarea id="telefone_obs" placeholder="Observações..."></textarea>
     </div>
 
-    <div class="item">
-      <span class="titulo">5. Adjudicação e homologação conferidas</span>
-      <div class="linha">
-        <label><input type="checkbox" name="atende5"> ATENDE</label>
-        <textarea name="obs5" placeholder="Observações..."></textarea>
+    <div class="checklist-item"><span class="checklist-label">Endereço</span>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="endereco_atende">
+        <label for="endereco_atende">Atende</label>
       </div>
+      <textarea id="endereco_obs" placeholder="Observações..."></textarea>
     </div>
 
+    <!-- Exemplo: mais campos iguais -->
+    <div class="checklist-item"><span class="checklist-label">Validade da proposta</span>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="validade_atende">
+        <label for="validade_atende">Atende</label>
+      </div>
+      <textarea id="validade_obs" placeholder="Observações..."></textarea>
+    </div>
+
+    <div class="checklist-item"><span class="checklist-label">Prazo de entrega</span>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="prazo_atende">
+        <label for="prazo_atende">Atende</label>
+      </div>
+      <textarea id="prazo_obs" placeholder="Observações..."></textarea>
+    </div>
+
+    <div class="checklist-item"><span class="checklist-label">Catálogo</span>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="catalogo_atende">
+        <label for="catalogo_atende">Atende</label>
+      </div>
+      <textarea id="catalogo_obs" placeholder="Observações..."></textarea>
+    </div>
+
+    <!-- Seção: Habilitação -->
+    <div class="section-title">Habilitação</div>
+
+    <div class="checklist-item"><span class="checklist-label">Jurídica</span>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="juridica_atende">
+        <label for="juridica_atende">Atende</label>
+      </div>
+      <textarea id="juridica_obs" placeholder="Observações..."></textarea>
+    </div>
+
+    <div class="checklist-item"><span class="checklist-label">Regularidade Fiscal e Trabalhista</span>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="regularidade_atende">
+        <label for="regularidade_atende">Atende</label>
+      </div>
+      <textarea id="regularidade_obs" placeholder="Observações..."></textarea>
+    </div>
+
+    <div class="checklist-item"><span class="checklist-label">Econômico-financeira</span>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="economica_atende">
+        <label for="economica_atende">Atende</label>
+      </div>
+      <textarea id="economica_obs" placeholder="Observações..."></textarea>
+    </div>
+
+    <div class="checklist-item"><span class="checklist-label">Qualificação Técnica</span>
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="qualificacao_atende">
+        <label for="qualificacao_atende">Atende</label>
+      </div>
+      <textarea id="qualificacao_obs" placeholder="Observações..."></textarea>
+    </div>
+
+    <button class="btn-save" onclick="salvarChecklist()">💾 Salvar Checklist</button>
   </div>
 
-  <button onclick="window.print()">🖨️ Imprimir / Salvar</button>
-  <p class="print-info">Dica: no celular, use o modo paisagem para caber melhor ao imprimir ou salvar em PDF.</p>
+  <script>
+    function salvarChecklist() {
+      const certame = document.getElementById("certame").value;
+      const licitante = document.getElementById("licitante").value;
 
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const dados = {};
+
+      checkboxes.forEach(cb => {
+        const idBase = cb.id.replace("_atende", "");
+        const obs = document.getElementById(idBase + "_obs")?.value || "";
+        dados[idBase] = {
+          atende: cb.checked ? "Sim" : "Não",
+          observacao: obs
+        };
+      });
+
+      const jsonData = {
+        certame,
+        licitante,
+        dataHora: new Date().toLocaleString("pt-BR"),
+        checklist: dados
+      };
+
+      const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `checklist_${certame.replace(/[^a-z0-9]/gi, '_')}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      alert("✅ Checklist salvo com sucesso!");
+    }
+  </script>
 </body>
 </html>
