@@ -5,86 +5,157 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checklist de Aceitabilidade de Proposta</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 10px;
-      font-size: 14px;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+      min-height: 100vh;
+      padding: 20px;
     }
+
     .container {
-      background: white;
-      max-width: 950px;
+      background: #fff;
+      max-width: 1100px;
       margin: auto;
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      padding: 20px 30px;
     }
+
     h1 {
       text-align: center;
-      font-size: 18px;
-      color: #444;
-      margin-bottom: 10px;
+      color: #3f2b96;
+      margin-bottom: 20px;
     }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .section {
+      margin-top: 25px;
+    }
+
     .section-title {
       font-weight: bold;
-      font-size: 15px;
-      color: #444;
-      margin-top: 18px;
-      border-left: 4px solid #667eea;
-      padding-left: 6px;
+      font-size: 17px;
+      color: #3f2b96;
+      margin-bottom: 10px;
+      border-left: 5px solid #3f2b96;
+      padding-left: 10px;
     }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
+    }
+
     .checklist-item {
       display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: 8px;
-      border-bottom: 1px solid #ddd;
-      padding: 6px 0;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8f8f8;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: 0.2s;
     }
+
+    .checklist-item:hover {
+      background: #eef1ff;
+    }
+
     .checklist-label {
-      flex: 1 1 220px;
+      flex: 1;
+      font-size: 14px;
       color: #333;
-      font-size: 13px;
+      transition: 0.3s;
     }
+
+    .checkbox-group {
+      display: flex;
+      gap: 10px;
+    }
+
     .checkbox-wrapper {
       display: flex;
       align-items: center;
       gap: 4px;
-      flex: 0 0 auto;
+      cursor: pointer;
     }
+
     input[type="checkbox"] {
       transform: scale(1.2);
       cursor: pointer;
-      accent-color: #007bff;
+      accent-color: #3f2b96;
     }
-    textarea {
-      flex: 1 1 300px;
-      min-height: 35px;
-      font-size: 13px;
-      padding: 4px;
+
+    .observations {
+      margin-top: 15px;
+    }
+
+    .observations label {
+      display: block;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .observations textarea {
+      width: 100%;
+      padding: 8px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 6px;
+      font-size: 13px;
+      min-height: 70px;
       resize: vertical;
     }
+
     .btn-save {
-      display: block;
       width: 100%;
-      margin-top: 15px;
-      padding: 10px;
-      background: #667eea;
-      color: white;
+      margin-top: 25px;
+      padding: 12px;
+      background: linear-gradient(135deg, #3f2b96 0%, #a8c0ff 100%);
       border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 15px;
+      border-radius: 8px;
+      color: white;
       font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    .btn-save:hover { background: #5563c1; }
+
+    .btn-save:hover {
+      transform: scale(1.02);
+      box-shadow: 0 5px 15px rgba(63,43,150,0.4);
+    }
+
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
     @media print {
+      body { background: white; }
       .btn-save { display: none; }
-      body { background: white; font-size: 12px; }
-      textarea { border: 1px solid #aaa; }
     }
   </style>
 </head>
@@ -94,141 +165,136 @@
 
     <div class="input-group">
       <label>Certame:</label>
-      <input type="text" id="certame" style="width:100%;padding:6px;margin-bottom:6px;">
+      <input type="text" id="certame">
+    </div>
+    <div class="input-group">
       <label>Licitante:</label>
-      <input type="text" id="licitante" style="width:100%;padding:6px;margin-bottom:12px;">
+      <input type="text" id="licitante">
     </div>
 
-    <!-- Seção: Aceitabilidade -->
-    <div class="section-title">Aceitabilidade de Proposta</div>
-
-    <div class="checklist-item"><span class="checklist-label">CNPJ</span>
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="cnpj_atende">
-        <label for="cnpj_atende">Atende</label>
+    <div class="section">
+      <div class="section-title">Aceitabilidade de Proposta</div>
+      <div class="grid" id="aceitabilidade">
+        <!-- Checklists gerados aqui -->
       </div>
-      <textarea id="cnpj_obs" placeholder="Observações..."></textarea>
+
+      <div class="observations">
+        <label>Observações gerais da Aceitabilidade:</label>
+        <textarea id="obs_aceitabilidade"></textarea>
+      </div>
     </div>
 
-    <div class="checklist-item"><span class="checklist-label">E-mail</span>
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="email_atende">
-        <label for="email_atende">Atende</label>
+    <div class="section">
+      <div class="section-title">Habilitação</div>
+      <div class="grid" id="habilitacao">
+        <div class="checklist-item"><span class="checklist-label">Jurídica</span>
+          <div class="checkbox-group">
+            <label class="checkbox-wrapper"><input type="checkbox" onchange="setStatus(this)"> Atende</label>
+            <label class="checkbox-wrapper"><input type="checkbox" onchange="setStatus(this)"> Não atende</label>
+          </div>
+        </div>
+        <div class="checklist-item"><span class="checklist-label">Regularidade Fiscal e Trabalhista</span>
+          <div class="checkbox-group">
+            <label class="checkbox-wrapper"><input type="checkbox" onchange="setStatus(this)"> Atende</label>
+            <label class="checkbox-wrapper"><input type="checkbox" onchange="setStatus(this)"> Não atende</label>
+          </div>
+        </div>
+        <div class="checklist-item"><span class="checklist-label">Econômico-financeira</span>
+          <div class="checkbox-group">
+            <label class="checkbox-wrapper"><input type="checkbox" onchange="setStatus(this)"> Atende</label>
+            <label class="checkbox-wrapper"><input type="checkbox" onchange="setStatus(this)"> Não atende</label>
+          </div>
+        </div>
+        <div class="checklist-item"><span class="checklist-label">Qualificação Técnica</span>
+          <div class="checkbox-group">
+            <label class="checkbox-wrapper"><input type="checkbox" onchange="setStatus(this)"> Atende</label>
+            <label class="checkbox-wrapper"><input type="checkbox" onchange="setStatus(this)"> Não atende</label>
+          </div>
+        </div>
       </div>
-      <textarea id="email_obs" placeholder="Observações..."></textarea>
-    </div>
 
-    <div class="checklist-item"><span class="checklist-label">Telefone</span>
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="telefone_atende">
-        <label for="telefone_atende">Atende</label>
+      <div class="observations">
+        <label>Observações gerais da Habilitação:</label>
+        <textarea id="obs_habilitacao"></textarea>
       </div>
-      <textarea id="telefone_obs" placeholder="Observações..."></textarea>
-    </div>
-
-    <div class="checklist-item"><span class="checklist-label">Endereço</span>
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="endereco_atende">
-        <label for="endereco_atende">Atende</label>
-      </div>
-      <textarea id="endereco_obs" placeholder="Observações..."></textarea>
-    </div>
-
-    <!-- Exemplo: mais campos iguais -->
-    <div class="checklist-item"><span class="checklist-label">Validade da proposta</span>
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="validade_atende">
-        <label for="validade_atende">Atende</label>
-      </div>
-      <textarea id="validade_obs" placeholder="Observações..."></textarea>
-    </div>
-
-    <div class="checklist-item"><span class="checklist-label">Prazo de entrega</span>
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="prazo_atende">
-        <label for="prazo_atende">Atende</label>
-      </div>
-      <textarea id="prazo_obs" placeholder="Observações..."></textarea>
-    </div>
-
-    <div class="checklist-item"><span class="checklist-label">Catálogo</span>
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="catalogo_atende">
-        <label for="catalogo_atende">Atende</label>
-      </div>
-      <textarea id="catalogo_obs" placeholder="Observações..."></textarea>
-    </div>
-
-    <!-- Seção: Habilitação -->
-    <div class="section-title">Habilitação</div>
-
-    <div class="checklist-item"><span class="checklist-label">Jurídica</span>
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="juridica_atende">
-        <label for="juridica_atende">Atende</label>
-      </div>
-      <textarea id="juridica_obs" placeholder="Observações..."></textarea>
-    </div>
-
-    <div class="checklist-item"><span class="checklist-label">Regularidade Fiscal e Trabalhista</span>
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="regularidade_atende">
-        <label for="regularidade_atende">Atende</label>
-      </div>
-      <textarea id="regularidade_obs" placeholder="Observações..."></textarea>
-    </div>
-
-    <div class="checklist-item"><span class="checklist-label">Econômico-financeira</span>
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="economica_atende">
-        <label for="economica_atende">Atende</label>
-      </div>
-      <textarea id="economica_obs" placeholder="Observações..."></textarea>
-    </div>
-
-    <div class="checklist-item"><span class="checklist-label">Qualificação Técnica</span>
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="qualificacao_atende">
-        <label for="qualificacao_atende">Atende</label>
-      </div>
-      <textarea id="qualificacao_obs" placeholder="Observações..."></textarea>
     </div>
 
     <button class="btn-save" onclick="salvarChecklist()">💾 Salvar Checklist</button>
   </div>
 
   <script>
+    const aceitabilidadeCampos = [
+      "CNPJ", "E-mail", "Telefone", "Endereço", "Data",
+      "Representante", "Validade da proposta", "Descrição",
+      "Quantidade", "Unidade", "Valor unitário", "Valor Total (R$)",
+      "Valor total por extenso", "Catálogo", "Dados bancários"
+    ];
+
+    const grid = document.getElementById("aceitabilidade");
+
+    aceitabilidadeCampos.forEach(campo => {
+      const item = document.createElement("div");
+      item.className = "checklist-item";
+      item.innerHTML = `
+        <span class="checklist-label">${campo}</span>
+        <div class="checkbox-group">
+          <label class="checkbox-wrapper"><input type="checkbox" onchange="setStatus(this)"> Atende</label>
+          <label class="checkbox-wrapper"><input type="checkbox" onchange="setStatus(this)"> ${
+            campo === "Catálogo" ? "Não exigido" : "Não atende"
+          }</label>
+        </div>`;
+      grid.appendChild(item);
+    });
+
+    function setStatus(checkbox) {
+      const item = checkbox.closest(".checklist-item");
+      const label = item.querySelector(".checklist-label");
+      const all = item.querySelectorAll("input[type='checkbox']");
+      all.forEach(cb => { if (cb !== checkbox) cb.checked = false; });
+      if (checkbox.checked) {
+        if (checkbox.nextSibling.textContent.includes("Atende")) {
+          label.style.color = "#007bff";
+          label.style.fontWeight = "normal";
+        } else if (checkbox.nextSibling.textContent.includes("Não atende")) {
+          label.style.color = "red";
+          label.style.fontWeight = "bold";
+        } else {
+          label.style.color = "#444";
+          label.style.fontWeight = "normal";
+        }
+      } else {
+        label.style.color = "#333";
+        label.style.fontWeight = "normal";
+      }
+    }
+
     function salvarChecklist() {
       const certame = document.getElementById("certame").value;
       const licitante = document.getElementById("licitante").value;
+      const obsAceit = document.getElementById("obs_aceitabilidade").value;
+      const obsHabil = document.getElementById("obs_habilitacao").value;
+      const dados = { certame, licitante, aceitabilidade: {}, habilitacao: {}, obsAceit, obsHabil };
 
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      const dados = {};
-
-      checkboxes.forEach(cb => {
-        const idBase = cb.id.replace("_atende", "");
-        const obs = document.getElementById(idBase + "_obs")?.value || "";
-        dados[idBase] = {
-          atende: cb.checked ? "Sim" : "Não",
-          observacao: obs
-        };
+      document.querySelectorAll("#aceitabilidade .checklist-item").forEach(item => {
+        const nome = item.querySelector(".checklist-label").textContent;
+        const marcado = Array.from(item.querySelectorAll("input[type=checkbox]"))
+          .find(cb => cb.checked)?.nextSibling.textContent.trim() || "";
+        dados.aceitabilidade[nome] = marcado;
       });
 
-      const jsonData = {
-        certame,
-        licitante,
-        dataHora: new Date().toLocaleString("pt-BR"),
-        checklist: dados
-      };
+      document.querySelectorAll("#habilitacao .checklist-item").forEach(item => {
+        const nome = item.querySelector(".checklist-label").textContent;
+        const marcado = Array.from(item.querySelectorAll("input[type=checkbox]"))
+          .find(cb => cb.checked)?.nextSibling.textContent.trim() || "";
+        dados.habilitacao[nome] = marcado;
+      });
 
-      const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
+      const blob = new Blob([JSON.stringify(dados, null, 2)], { type: "application/json" });
       const a = document.createElement("a");
-      a.href = url;
-      a.download = `checklist_${certame.replace(/[^a-z0-9]/gi, '_')}.json`;
+      a.href = URL.createObjectURL(blob);
+      a.download = `checklist_${certame.replace(/[^a-z0-9]/gi, "_")}.json`;
       a.click();
-      URL.revokeObjectURL(url);
-
+      URL.revokeObjectURL(a.href);
       alert("✅ Checklist salvo com sucesso!");
     }
   </script>
